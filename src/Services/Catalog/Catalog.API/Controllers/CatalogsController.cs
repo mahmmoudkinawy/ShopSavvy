@@ -25,6 +25,16 @@ public sealed class CatalogsController : ControllerBase
         return Ok(_mapper.Map<IReadOnlyList<ProductResponse>>(products));
     }
 
+    [HttpGet("by-category-name/{categoryName}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetProductsByCategoryName(
+        [FromRoute] string categoryName)
+    {
+        var products = await _productRepository.GetProductsByCategoryNameAsync(categoryName);
+
+        return Ok(_mapper.Map<IReadOnlyList<ProductResponse>>(products));
+    }
+
     [HttpGet("{productId:length(24)}", Name = "GetProductById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
