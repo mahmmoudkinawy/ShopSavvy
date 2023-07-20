@@ -25,7 +25,7 @@ public sealed class CatalogsController : ControllerBase
         return Ok(_mapper.Map<IReadOnlyList<ProductResponse>>(products));
     }
 
-    [HttpGet("by-category-name/{categoryName}")]
+    [HttpGet("filter-by-category-name/{categoryName}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProductsByCategoryName(
         [FromRoute] string categoryName)
