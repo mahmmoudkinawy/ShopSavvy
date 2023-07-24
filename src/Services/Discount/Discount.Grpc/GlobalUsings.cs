@@ -1,0 +1,10 @@
+﻿global using AutoMapper;
+global using Dapper;
+global using Discount.Grpc.Database;
+global using Discount.Grpc.Entities;
+global using Discount.Grpc.Protos;
+global using Discount.Grpc.Repositories;
+global using Discount.Grpc.Services;
+global using Grpc.Core;
+global using Npgsql;
+global using System.Data;
