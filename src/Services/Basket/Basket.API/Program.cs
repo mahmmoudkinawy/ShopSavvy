@@ -13,10 +13,15 @@ builder.Services.AddApiVersioning(opts =>
 
 builder.Services.AddVersionedApiExplorer(opts => opts.GroupNameFormat = "'v'VVV");
 
-builder.Services.AddStackExchangeRedisCache(options => 
+builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString"));
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
+    options => options.Address = new Uri(builder.Configuration.GetValue<string>("GrpcSettings:DiscountUri")));
+
+builder.Services.AddScoped<DiscountGrpcService>();
 
 var app = builder.Build();
 

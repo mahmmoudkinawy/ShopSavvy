@@ -20,6 +20,9 @@ public sealed class DiscountService : DiscountProtoService.DiscountProtoServiceB
 
     public override async Task<CouponResponse> GetDiscount(GetDiscountRequest request, ServerCallContext context)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(request));
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(context));
+
         var coupon = await _discountRepository.GetDiscountByProductNameAsync(request.ProductName);
 
         if (coupon is null)
@@ -35,6 +38,9 @@ public sealed class DiscountService : DiscountProtoService.DiscountProtoServiceB
 
     public override async Task<CouponResponse> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(request));
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(context));
+
         var coupon = _mapper.Map<CouponEntity>(request.Coupon);
 
         await _discountRepository.CreateDiscountAsync(coupon);
@@ -46,6 +52,9 @@ public sealed class DiscountService : DiscountProtoService.DiscountProtoServiceB
 
     public override async Task<CouponResponse> UpdateDiscount(UpdateDiscountRequest request, ServerCallContext context)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(request));
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(context));
+
         var coupon = await _discountRepository.GetDiscountByCouponIdAsync(request.Coupon.Id);
 
         _mapper.Map(request, coupon);
@@ -57,6 +66,9 @@ public sealed class DiscountService : DiscountProtoService.DiscountProtoServiceB
 
     public override async Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(request));
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(context));
+
         return new DeleteDiscountResponse
         {
             Success = await _discountRepository.DeleteDiscountAsync(request.ProductName)

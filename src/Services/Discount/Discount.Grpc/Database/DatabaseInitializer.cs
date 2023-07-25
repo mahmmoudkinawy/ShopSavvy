@@ -14,6 +14,10 @@ public sealed class DatabaseInitializer
         using var connection = await _connectionFactory.CreateConnectionAsync();
 
         await connection.ExecuteAsync(
+            "DROP TABLE IF EXISTS Coupons;"
+        );
+
+        await connection.ExecuteAsync(
             @"CREATE TABLE IF NOT EXISTS Coupons(
                     Id SERIAL PRIMARY KEY,
                     ProductName VARCHAR(1000),
@@ -31,9 +35,8 @@ public sealed class DatabaseInitializer
         {
             await connection.ExecuteAsync(
                 @"INSERT INTO Coupons(ProductName, Description, Amount) VALUES
-                ('I Phone X', 'I Phone Discount', 12.34),
-                ('Samsung', 'Samsung Discount', 56.78),
-                ('Laptop', 'Laptop Discount', 90.12);");
+                ('IPhone X', 'I Phone Discount', 12.34),
+                ('Samsung 10', 'Samsung Discount', 56.78)");
         }
     }
 
