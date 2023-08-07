@@ -12,4 +12,7 @@ global using Order.Domain.Common;
 global using Order.Domain.Entities;
 global using System.Linq.Expressions;
 global using Order.Application.Contracts.Infrastructure;
+global using Microsoft.Extensions.DependencyInjection;
+global using Order.Application.Behaviors;
+global using System.Reflection;
 

@@ -1,0 +1,10 @@
+﻿global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
+global using Order.Application;
+global using Order.Application.Features.Orders.Commands.CheckoutOrder;
+global using Order.Application.Features.Orders.Commands.DeleteOrder;
+global using Order.Application.Features.Orders.Commands.UpdateOrder;
+global using Order.Application.Features.Orders.Queries;
+global using Order.Infrastructure;
+global using Order.Infrastructure.Persistence;
