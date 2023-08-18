@@ -7,13 +7,17 @@ public sealed class BasketController : ControllerBase
 {
     private readonly IBasketRepository _basketRepository;
     private readonly DiscountGrpcService _discountGrpcService;
+    private readonly IPublishEndpoint _publishEndpoint;
 
     public BasketController(
         IBasketRepository basketRepository,
+        IPublishEndpoint publishEndpoint,
         DiscountGrpcService discountGrpcService)
     {
         _basketRepository = basketRepository ??
             throw new ArgumentNullException(nameof(basketRepository));
+        _publishEndpoint = publishEndpoint ??
+            throw new ArgumentNullException(nameof(publishEndpoint));
         _discountGrpcService = discountGrpcService ??
             throw new ArgumentNullException(nameof(discountGrpcService));
     }
@@ -48,6 +52,31 @@ public sealed class BasketController : ControllerBase
         return Ok(basketToCreate);
     }
 
+    [HttpPost("checkout")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Checkout(
+        [FromBody] BasketCheckoutModel basketCheckout)
+    {
+        var basket = await _basketRepository
+            .GetBasketByUserNameAsync(basketCheckout.UserName);
+
+        if (basket is null)
+        {
+            return NotFound();
+        }
+
+        var basketCheckoutEvent = basketCheckout.MapToBasketCheckoutEvent();
+
+        basketCheckoutEvent.TotalPrice = basket.TotalPrice;
+
+        await _publishEndpoint.Publish(basketCheckoutEvent);
+
+        await _basketRepository.DeleteBasketAsync(basketCheckout.UserName);
+
+        return Accepted();
+    }
+
     [HttpDelete("{userName}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteBasket(
@@ -57,5 +86,4 @@ public sealed class BasketController : ControllerBase
 
         return NoContent();
     }
-
 }

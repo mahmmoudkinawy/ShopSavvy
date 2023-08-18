@@ -1,27 +1,12 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddSwaggerServices();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddApiVersioning(opts =>
-{
-    opts.AssumeDefaultVersionWhenUnspecified = true;
-    opts.ReportApiVersions = true;
-    opts.DefaultApiVersion = new ApiVersion(1, 0);
-});
+builder.Services.AddGrpcServices(builder.Configuration);
 
-builder.Services.AddVersionedApiExplorer(opts => opts.GroupNameFormat = "'v'VVV");
+builder.Services.AddApplicationServices(builder.Configuration);
 
-builder.Services.AddStackExchangeRedisCache(options =>
-    options.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString"));
-
-builder.Services.AddScoped<IBasketRepository, BasketRepository>();
-
-builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
-    options => options.Address = new Uri(builder.Configuration.GetValue<string>("GrpcSettings:DiscountUri")));
-
-builder.Services.AddScoped<DiscountGrpcService>();
+builder.Services.AddMessageServices(builder.Configuration);
 
 var app = builder.Build();
 
