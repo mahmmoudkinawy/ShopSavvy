@@ -1,6 +1,12 @@
-﻿global using MediatR;
+﻿global using EventBus.Messages.Common;
+global using EventBus.Messages.Events;
+global using MassTransit;
+global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
+global using Order.API.Consumers;
+global using Order.API.Extensions;
+global using Order.API.Mappers;
 global using Order.Application;
 global using Order.Application.Features.Orders.Commands.CheckoutOrder;
 global using Order.Application.Features.Orders.Commands.DeleteOrder;

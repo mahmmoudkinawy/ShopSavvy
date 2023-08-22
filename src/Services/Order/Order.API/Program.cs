@@ -2,21 +2,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddApiVersioning(opts =>
-{
-    opts.AssumeDefaultVersionWhenUnspecified = true;
-    opts.ReportApiVersions = true;
-    opts.DefaultApiVersion = new ApiVersion(1, 0);
-});
-
-builder.Services.AddVersionedApiExplorer(opts => opts.GroupNameFormat = "'v'VVV");
+builder.Services.AddSwaggerServices();
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddApplicationServices();
+
+builder.Services.AddMessageServices(builder.Configuration);
 
 var app = builder.Build();
 
