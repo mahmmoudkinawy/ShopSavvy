@@ -38,7 +38,6 @@ public sealed class OrdersController : ControllerBase
     }
 
     [HttpPut]
-    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -51,7 +50,6 @@ public sealed class OrdersController : ControllerBase
     }
 
     [HttpDelete("{orderId:int}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteOrder(
