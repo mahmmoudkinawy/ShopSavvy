@@ -58,8 +58,15 @@ services:
       context: .
       dockerfile: ShopSavvyApiGateway/OcelotApiGateway/Dockerfile
 
+  shopsavvyaggregator:
+    image: ${DOCKER_REGISTRY-}shopsavvyaggregator
+    build:
+      context: .
+      dockerfile: ShopSavvyApiGateway/ShopSavvyAggregator/Dockerfile
+
 volumes:
   mongo_data:
   portainer_data:
   postgres_data: 
   pgadmin_data:
+

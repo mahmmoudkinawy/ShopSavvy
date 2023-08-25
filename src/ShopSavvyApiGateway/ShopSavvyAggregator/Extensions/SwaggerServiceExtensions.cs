@@ -1,4 +1,4 @@
-﻿namespace Basket.API.Extensions;
+﻿namespace ShopSavvyAggregator.Extensions;
 public static class SwaggerServiceExtensions
 {
     public static IServiceCollection AddSwaggerServices(this IServiceCollection services)

@@ -124,5 +124,23 @@ services:
     container_name: ocelotapigateway
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - order.api
+      - basket.api
+      - catalog.api 
     ports:
       - "8010:80"
+
+  shopsavvyaggregator:
+    container_name: shopsavvyaggregator
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ServiceUrls:CatalogUrl=http://catalog.api" 
+      - "ServiceUrls:BasketUrl=http://basket.api" 
+      - "ServiceUrls:OrderUrl=http://order.api" 
+    depends_on:
+      - order.api
+      - basket.api
+      - catalog.api 
+    ports:
+      - "8005:80"
