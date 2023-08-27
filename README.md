@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="shop_savvy_logo.png" alt="ShopSavvy Logo" width="200" height="200">
   <h1>ShopSavvy Microservices Project</h1>
   <p>Building a Scalable and Modern E-Commerce Platform</p>
 </div>
